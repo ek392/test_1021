@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로딩 애니메이션</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #3498db; /* 파란색 배경 */
+    }
+
+    .loading-container {
+      display: flex;
+      justify-content: space-between;
+      width: 600px; /* 세 개의 원을 배치하기 위한 가로 크기 */
+      height: 150px;
+      position: relative;
+    }
+
+    .loading-circle {
+      width: 150px;
+      height: 150px;
+      border: 10px solid lightgray;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .svg-logo {
+      width: 60px;
+      height: 60px;
+    }
+
+    .loading-text {
+      margin-top: 10px;
+      font-size: 20px;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-container">
+    <!-- Photoshop 로고 원 -->
+    <div class="loading-circle" data-target="70">
+      <img class="svg-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop 로고">
+      <div class="loading-text">0%</div>
+    </div>
+
+    <!-- Illustrator 로고 원 -->
+    <div class="loading-circle" data-target="40">
+      <img class="svg-logo" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator 로고">
+      <div class="loading-text">0%</div>
+    </div>
+
+    <!-- Visual Studio 로고 원 -->
+    <div class="loading-circle" data-target="30">
+      <img class="svg-logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Visual_Studio_Icon_2022.svg" alt="Visual Studio 로고">
+      <div class="loading-text">0%</div>
+    </div>
+  </div>
+
+  <script>
+    const loadingCircles = document.querySelectorAll('.loading-circle');
+
+    // 페이지가 로드되었을 때 각각 70%, 40%, 30%로 숫자가 올라가도록 설정
+    loadingCircles.forEach(circle => {
+      const targetPercent = parseInt(circle.getAttribute('data-target')); // 각 원의 목표 퍼센트 가져오기
+      let percent = 0;
+      const loadingText = circle.querySelector('.loading-text');
+
+      const interval = setInterval(() => {
+        if (percent < targetPercent) {
+          percent++;
+          loadingText.textContent = `${percent}%`;
+        } else {
+          clearInterval(interval);
+        }
+      }, 30); // 0.03초마다 1% 증가
+    });
+  </script>
+</body>
+</html>
